@@ -1,5 +1,5 @@
 ---
-description: Airtable Interface Extensions - custom properties (v0.1.0, 2025-05-28)
+description: Airtable Interface Extensions - custom properties (v0.2.0, 2025-06-20)
 trigger: always_on
 ---
 <custom_properties>
