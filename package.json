@@ -1,6 +1,6 @@
 {
     "name": "@airtable/hello-world-typescript-interface-extension",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "A typescript version of a hello world app",
     "author": "",
     "license": "MIT",

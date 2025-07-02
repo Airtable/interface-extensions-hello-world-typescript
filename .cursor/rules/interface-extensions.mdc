@@ -12,6 +12,7 @@ You are developing an Interface Extension which extends Airtable's built-in Inte
 * The entrypoint for an Interface Extension is `frontend/index.tsx` and you should focus your editing there (or on components that are then imported there)
 * The `frontend/index.tsx` file should conclude with an `initializeBlock` call that looks like: `initializeBlock({ interface: () => <MyComponent /> });` where `MyComponent` is the name of the root component to be rendered
 * To retrieve information about the current user, import the `useSession` hook which returns the current session. `session.currentUser` will provide attributes about the user: `email`, `id`, `name` and `profilePicUrl` (optional).
+* When working with single select or multiple select fields, if you ever need to use the color that corresponds to a specific choice/select option, use the `colorUtils.getHexForColor` SDK method to convert it to a hex code.
 </blocks_sdk>
 
 <reading_airtable_data>
@@ -26,7 +27,7 @@ You are developing an Interface Extension which extends Airtable's built-in Inte
 <editing_airtable_data>
 * Depending on the configuration of the Interface Extension and the specific fields you're trying to edit, adding/editing/deleting records may not be allowed.
     * Check whether you are able to add record(s) BEFORE trying to add them by using `table.hasPermissionToCreateRecords(records?: ReadonlyArray<{ fields?: ObjectMap<FieldId | string, unknown | void> | void; }>) => boolean`. (e.g. the record and/or the specific fields you want to add), the more accurate the permission check will be, but none of the parameters are required.
-    * Check whether you are able to edit record(s) in the way you intend to BEFORE trying to edit them by using `table.hasPermissionToUpdateRecords(recordOrRecordId?: Record | RecordId, fields?: ObjectMap<FieldId | string, unknown | void>) => boolean`.
+    * Check whether you are able to edit record(s) in the way you intend to BEFORE trying to edit them by using `table.hasPermissionToUpdateRecords(records?: ReadonlyArray<{fields?: ObjectMap<FieldId | string, unknown | void> | void;id?: RecordId | void; }>) => boolean`.
     * Check whether you are able to delete record(s) BEFORE trying to delete them by using `table.hasPermissionToDeleteRecords(recordsOrRecordIds?: ReadonlyArray<Record | RecordId>) => boolean`
 * To add records, use `table.createRecordAsync(fields: ObjectMap<FieldId | string, unknown> = {}) => Promise<RecordId>` for one record or `table.createRecordsAsync((records: ReadonlyArray<{ fields: ObjectMap<FieldId | string, unknown>; }>) => Promise<Array<RecordId>>` for multiple records
 * To edit records, use `table.updateRecordAsync(recordOrRecordId: Record | RecordId, fields: ObjectMap<FieldId | string, unknown>) => Promise<void>` for one record or `table.updateRecordsAsync(records: ReadonlyArray<{fields: ObjectMap<FieldId | string, unknown>; id: RecordId; }>) => Promise<void>` for multiple records
@@ -90,7 +91,9 @@ You are developing an Interface Extension which extends Airtable's built-in Inte
     * react-simple-maps: for rendering simple or abstract geographic maps
     * marked: for parsing Markdown
     * @phosphor-icons/react: for icons
+    * @dnd-kit/core: for drag & drop interactions
 * Make sure to install third-party libraries first (don't depend on that being done for you)
+* If a third-party library doesn't list React 19 as a peer dependency, use the `--legacy-peer-deps` flag when installing npm packages.
 * Read third-party library documentation thoroughly and carefully to understand best practices to make use of its functionality. Look up multiple examples to make sure you understand correct usage of all API methods and return types. DO NOT invent or create API methods in third-party libraries
 </third_party_libraries>
 
@@ -99,6 +102,6 @@ You are developing an Interface Extension which extends Airtable's built-in Inte
 * Support both dark and light modes by using `prefers-color-scheme` CSS feature.
     * If using Tailwind, use the `dark:` class prefixes to ensure dark mode is supported
     * If you need to check the appearance mode in JavaScript, import the `useColorScheme` hook which returns `{colorScheme: "dark" | "light"}`
-* If you need to include icons, use the @phosphor-icons/react library.
-* Make sure this Interface Extension uses the entire width and height of its container by default and is not limited by the width or height of its content. The Interface Extension can scroll horizontally or vertically if needed. 
+* If you need to include icons, use the @phosphor-icons/react library. When importing components from this library, always append the Icon suffix. For example, instead of importing `ArrowRight`, import `ArrowRightIcon`.
+* Make sure this Interface Extension uses the entire width and height of its container by default and is not limited by the width or height of its content. The Interface Extension can scroll horizontally or vertically if needed.
 </appearance>
