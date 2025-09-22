@@ -4,9 +4,7 @@ import './style.css';
 function HelloWorldTypescriptApp() {
     // YOUR CODE GOES HERE
     return (
-        <div
-            className="p-4 sm:p-8 min-h-screen relative bg-gray-gray50 dark:bg-gray-gray800"
-        >
+        <div className="p-4 sm:p-8 min-h-screen relative bg-gray-gray50 dark:bg-gray-gray800">
             <div
                 className="rounded-lg p-6 sm:p-12 max-w-lg mx-auto text-center mt-10 sm:mt-20
             bg-white shadow-xl
